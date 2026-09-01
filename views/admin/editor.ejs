@@ -1,0 +1,185 @@
+<%- include('../partials/admin-header') %>
+
+<form id="tbf-article-editor-form" data-article-id="<%= articleId || '' %>" class="space-y-6">
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- Main Content Area (Left 8 Cols) -->
+    <div class="lg:col-span-8 space-y-6">
+      
+      <!-- Primary Article Details Box -->
+      <div class="bg-white p-6 border border-tbf-border space-y-4">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Editorial Pillar *</label>
+            <select id="editor-category" required class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs font-semibold focus:outline-none focus:border-tbf-teal">
+              <% categories.forEach(cat => { %>
+                <option value="<%= cat.slug %>"><%= cat.name %> (<%= cat.tagline %>)</option>
+              <% }) %>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Content Format (Brief 3.1) *</label>
+            <select id="editor-format" required class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs font-semibold focus:outline-none focus:border-tbf-teal">
+              <% formats.forEach(fmt => { %>
+                <option value="<%= fmt.slug %>"><%= fmt.name %> · <%= fmt.words %> (<%= fmt.cadence %>)</option>
+              <% }) %>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Headline (Title) *</label>
+          <input type="text" id="editor-title" required placeholder="Enter authoritative, sharp headline..." class="w-full bg-[#FAFAF5] border border-tbf-border p-3 font-serif font-bold text-xl sm:text-2xl text-tbf-navy focus:outline-none focus:border-tbf-teal">
+        </div>
+
+        <div>
+          <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Deck / Excerpt (One-sentence thesis, under 160 chars) *</label>
+          <textarea id="editor-excerpt" required rows="2" placeholder="The crisp subheadline that frames the article thesis..." class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs sm:text-sm font-sans focus:outline-none focus:border-tbf-teal"></textarea>
+        </div>
+
+      </div>
+
+      <!-- Formatting Toolbar & Markdown Body Editor (The 6 Signature Elements: Brief 7) -->
+      <div class="bg-white border border-tbf-border">
+        
+        <!-- Toolbar -->
+        <div class="p-3 bg-surface border-b border-tbf-border flex flex-wrap items-center gap-2 text-xs">
+          <span class="text-[10px] uppercase font-bold text-gray-500 mr-1">TBF Blocks:</span>
+          
+          <button type="button" onclick="insertEditorBlock('heading')" class="px-2.5 py-1 bg-white border border-tbf-border font-serif font-bold hover:bg-gray-100" title="Subheading (30px Serif)">
+            H2 Subheading
+          </button>
+          <button type="button" onclick="insertEditorBlock('pullquote')" class="px-2.5 py-1 bg-white border border-tbf-border font-serif italic text-tbf-teal font-bold hover:bg-gray-100" title="Signature Pull Quote (Teal left border)">
+            “ Pull Quote ”
+          </button>
+          <button type="button" onclick="insertEditorBlock('keystat')" class="px-2.5 py-1 bg-white border border-tbf-border font-mono font-bold text-tbf-teal hover:bg-gray-100" title="Key Stat Box">
+            📊 Key Stat
+          </button>
+          <button type="button" onclick="insertEditorBlock('bold')" class="px-2.5 py-1 bg-white border border-tbf-border font-bold hover:bg-gray-100" title="Bold Turning Point">
+            <strong>B</strong>
+          </button>
+          <button type="button" onclick="insertEditorBlock('image')" class="px-2.5 py-1 bg-white border border-tbf-border hover:bg-gray-100" title="Inline Image with Caption">
+            🖼️ Inline Image
+          </button>
+          <button type="button" onclick="insertEditorBlock('divider')" class="px-2.5 py-1 bg-white border border-tbf-border hover:bg-gray-100" title="Section Divider">
+            — Rule
+          </button>
+        </div>
+
+        <div class="p-4">
+          <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Article Body (Markdown) *</label>
+          <textarea id="editor-content" required rows="18" placeholder="Compose article using the 6 building blocks..." class="w-full font-mono text-xs sm:text-sm p-4 bg-[#FAFAF5] border border-tbf-border focus:outline-none focus:border-tbf-teal leading-relaxed"></textarea>
+        </div>
+
+      </div>
+
+      <!-- Featured Image Configuration (Brief 3.6: 1600x900 required for published) -->
+      <div class="bg-white p-6 border border-tbf-border space-y-4">
+        <h4 class="font-serif font-bold text-base text-tbf-navy pb-2 border-b border-tbf-border">Hero Image (1600×900 Required for Publish)</h4>
+        
+        <div>
+          <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Image URL *</label>
+          <input type="url" id="editor-hero-image" placeholder="https://images.unsplash.com/..." class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs font-mono focus:outline-none focus:border-tbf-teal">
+        </div>
+
+        <div>
+          <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Hero Image Caption & Attribution</label>
+          <input type="text" id="editor-hero-caption" placeholder="e.g. Nariman Point at dusk · Photograph courtesy of..." class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs focus:outline-none focus:border-tbf-teal">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Sidebar: Publishing Controls & SEO Block (Right 4 Cols) -->
+    <div class="lg:col-span-4 space-y-6">
+      
+      <!-- Publishing Action Card -->
+      <div class="bg-white p-6 border border-tbf-border space-y-4">
+        <h4 class="font-serif font-bold text-base text-tbf-navy pb-2 border-b border-tbf-border">Publishing Controls</h4>
+
+        <div>
+          <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Article Status</label>
+          <select id="editor-status" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs font-bold focus:outline-none focus:border-tbf-teal">
+            <option value="draft">Draft (Awaiting Review)</option>
+            <option value="published">Published (Live on Site)</option>
+            <option value="scheduled">Scheduled</option>
+            <option value="archived">Archived</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Byline / Author</label>
+          <input type="text" id="editor-author" value="TBF Editorial Desk" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs focus:outline-none focus:border-tbf-teal">
+        </div>
+
+        <!-- Ingestion Attribution Alert (If Auto-Drafted) -->
+        <div id="editor-source-block" class="hidden p-3 bg-surface border-l-2 border-tbf-teal text-xs">
+          <span class="text-[10px] uppercase font-bold text-tbf-teal block">Auto-Ingestion Source</span>
+          <a href="#" id="editor-source-url" target="_blank" class="text-tbf-navy truncate block hover:underline mt-1 font-mono"></a>
+        </div>
+
+        <div class="pt-4 border-t border-tbf-border space-y-2">
+          <button type="submit" data-status="published" class="w-full tbf-btn-teal py-3 text-xs uppercase tracking-wider font-bold">
+            Publish Live Now →
+          </button>
+          <button type="submit" data-status="draft" class="w-full tbf-btn-secondary py-2.5 text-xs uppercase tracking-wider">
+            Save as Draft
+          </button>
+        </div>
+      </div>
+
+      <!-- SEO & OpenGraph Block (Strict Brief 11 Compliance) -->
+      <div class="bg-white p-6 border border-tbf-border space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-tbf-border">
+          <h4 class="font-serif font-bold text-base text-tbf-navy">SEO & Meta Tags</h4>
+          <span class="text-[9px] uppercase font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5">Enforced</span>
+        </div>
+
+        <!-- Meta Title with Real-time Char Counter (<= 60 chars) -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-[10px] uppercase font-bold tracking-wider text-tbf-navy">Meta Title (≤ 60 chars) *</label>
+            <span id="meta-title-counter" class="text-xs text-gray-500 font-mono">0 / 60</span>
+          </div>
+          <input type="text" id="editor-meta-title" placeholder="Meta title for Google Search..." class="w-full bg-[#FAFAF5] border border-tbf-border p-2 text-xs focus:outline-none focus:border-tbf-teal">
+        </div>
+
+        <!-- Meta Description with Real-time Char Counter (<= 160 chars) -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-[10px] uppercase font-bold tracking-wider text-tbf-navy">Meta Description (≤ 160 chars) *</label>
+            <span id="meta-desc-counter" class="text-xs text-gray-500 font-mono">0 / 160</span>
+          </div>
+          <textarea id="editor-meta-desc" rows="3" placeholder="Crisp summary for search results snippet..." class="w-full bg-[#FAFAF5] border border-tbf-border p-2 text-xs focus:outline-none focus:border-tbf-teal"></textarea>
+        </div>
+
+        <!-- URL Slug -->
+        <div>
+          <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">URL Slug (Auto-generated) *</label>
+          <input type="text" id="editor-slug" placeholder="hyphenated-slug-without-stop-words" class="w-full bg-[#FAFAF5] border border-tbf-border p-2 text-xs font-mono focus:outline-none focus:border-tbf-teal">
+        </div>
+
+        <!-- Signature Pullquote Block Field -->
+        <div>
+          <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Signature Pull Quote</label>
+          <textarea id="editor-pullquote" rows="2" placeholder="One striking line from the piece..." class="w-full bg-[#FAFAF5] border border-tbf-border p-2 text-xs font-serif italic focus:outline-none focus:border-tbf-teal"></textarea>
+        </div>
+
+        <!-- Tags -->
+        <div>
+          <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Tags (3–5 comma separated)</label>
+          <input type="text" id="editor-tags" placeholder="e.g. wealth, markets, mumbai, private-equity" class="w-full bg-[#FAFAF5] border border-tbf-border p-2 text-xs focus:outline-none focus:border-tbf-teal">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</form>
+
+<%- include('../partials/admin-footer') %>

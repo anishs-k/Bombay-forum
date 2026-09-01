@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= pageTitle || 'The Bombay Forum — Business · Wealth · Luxury · Culture' %></title>
+  
+  <meta name="description" content="<%= metaDescription || 'The Bombay Forum is a premium editorial platform covering business, wealth, luxury, culture and the people building modern India.' %>">
+  <link rel="canonical" href="<%= siteUrl %><%= currentPath %>">
+
+  <!-- OpenGraph / Social Meta -->
+  <meta property="og:site_name" content="The Bombay Forum">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="<%= siteUrl %><%= currentPath %>">
+  <meta property="og:title" content="<%= pageTitle || 'The Bombay Forum' %>">
+  <meta property="og:description" content="<%= metaDescription || 'Business · Wealth · Luxury · Culture in Modern India' %>">
+  <meta property="og:image" content="<%= typeof ogImage !== 'undefined' && ogImage ? ogImage : 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&h=630&q=80' %>">
+
+  <!-- Twitter Meta -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= pageTitle || 'The Bombay Forum' %>">
+  <meta name="twitter:description" content="<%= metaDescription || 'Business · Wealth · Luxury · Culture in Modern India' %>">
+  <meta name="twitter:image" content="<%= typeof ogImage !== 'undefined' && ogImage ? ogImage : 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1200&h=630&q=80' %>">
+
+  <!-- RSS Feed Link -->
+  <link rel="alternate" type="application/rss+xml" title="The Bombay Forum RSS 2.0 Feed" href="/rss">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'tbf-navy': '#0E2130',
+            'tbf-sidebar': '#091C2A',
+            'tbf-teal': '#4A8090',
+            'tbf-teal-light': '#8BB0B8',
+            'tbf-sage': '#B8D4CC',
+            'tbf-cream': '#FAFAF5',
+            'tbf-surface': '#EEEEE9',
+            'tbf-border': '#D6D6CF',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Design System Stylesheet -->
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="bg-tbf-cream text-[#121A20] flex flex-col min-h-screen">
+
+  <!-- Top Bar: Dynamic Bombay Time & Market Indicators -->
+  <div class="bg-tbf-navy text-[#FAFAF5] text-xs py-2 px-4 border-b border-[#1A3347]">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-3">
+        <span class="inline-block w-2 h-2 bg-emerald-400"></span>
+        <span id="bombay-live-date" class="font-sans font-medium tracking-wide"><%= currentDateBombay %></span>
+      </div>
+      <div class="flex items-center gap-6 text-[11px] text-tbf-sage tracking-wider uppercase">
+        <span class="hidden md:inline">Edition: India & Global</span>
+        <a href="/spotlight" class="hover:text-white transition">Spotlight</a>
+        <a href="/about" class="hover:text-white transition">About</a>
+        <a href="/admin" class="hover:text-white transition font-bold text-tbf-teal-light">Editor Desk</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Masthead Header -->
+  <header class="bg-tbf-navy text-[#FAFAF5] border-b border-[#1A3347] sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
+      
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden text-[#FAFAF5] p-2 focus:outline-none" aria-label="Toggle Menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+
+      <!-- Logo / Masthead -->
+      <div class="flex flex-col items-center sm:items-start">
+        <a href="/" class="text-2xl sm:text-3xl font-serif font-bold tracking-tight text-[#FAFAF5] hover:text-tbf-sage transition">
+          THE BOMBAY FORUM
+        </a>
+        <span class="text-[10px] tracking-[0.25em] uppercase text-tbf-sage font-sans font-semibold mt-0.5">
+          Business · Wealth · Luxury · Culture
+        </span>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="flex items-center gap-4">
+        <!-- Search Trigger -->
+        <button class="tbf-search-trigger p-2 text-tbf-sage hover:text-white transition flex items-center gap-1.5 text-xs font-sans" title="Search (⌘K)">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          <span class="hidden sm:inline">Search</span>
+        </button>
+
+        <!-- Newsletter Subscribe Button -->
+        <a href="#newsletter-signup" class="tbf-btn-teal text-xs py-2 px-4">
+          The Communiqué
+        </a>
+      </div>
+    </div>
+
+    <!-- Navigation Pillars (The Six Pillars: Brief Section 2) -->
+    <nav class="border-t border-[#1A3347] bg-[#0B1A26] hidden md:block">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center space-x-1 lg:space-x-8 text-xs uppercase tracking-[0.14em] font-semibold py-3">
+        <% categories.forEach(cat => { %>
+          <a href="<%= cat.path %>" class="px-3 py-1 transition <%= currentPath === cat.path ? 'text-white border-b-2 border-tbf-teal font-bold' : 'text-tbf-sage hover:text-white' %>">
+            <%= cat.name %>
+          </a>
+        <% }) %>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobile-menu" class="hidden bg-[#091C2A] text-white border-b border-[#1A3347] md:hidden px-4 py-4 space-y-2">
+    <% categories.forEach(cat => { %>
+      <a href="<%= cat.path %>" class="block py-2 text-sm uppercase tracking-wider font-semibold <%= currentPath === cat.path ? 'text-tbf-teal font-bold' : 'text-gray-300' %>">
+        <%= cat.name %>
+      </a>
+    <% }) %>
+    <div class="pt-4 border-t border-gray-800 space-y-2 text-xs">
+      <a href="/about" class="block py-1 text-gray-400">About The Bombay Forum</a>
+      <a href="/spotlight" class="block py-1 text-gray-400">Brand Spotlight</a>
+      <a href="/policies" class="block py-1 text-gray-400">Editorial Standards & Policies</a>
+      <a href="/admin" class="block py-1 text-tbf-teal">Admin Access</a>
+    </div>
+  </div>
+
+  <!-- Search Modal Overlay -->
+  <div id="tbf-search-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50 hidden items-start justify-center pt-24 px-4">
+    <div class="bg-tbf-cream border border-tbf-border max-w-2xl w-full p-6 shadow-2xl">
+      <div class="flex items-center justify-between pb-4 border-b border-tbf-border">
+        <h3 class="font-serif text-xl font-bold text-tbf-navy">Search The Bombay Forum</h3>
+        <button id="tbf-search-close" class="text-gray-500 hover:text-black text-xl font-bold">&times;</button>
+      </div>
+      <form action="/search" method="GET" class="mt-4 flex gap-2">
+        <input type="text" name="q" id="tbf-search-input" placeholder="Search founders, markets, luxury, stories..." class="flex-1 p-3 border border-tbf-border bg-white text-sm focus:outline-none focus:border-tbf-teal font-sans">
+        <button type="submit" class="tbf-btn-primary py-3 px-6">Search</button>
+      </form>
+      <div class="mt-4 text-xs text-gray-500 flex items-center justify-between">
+        <span>Press ESC to exit</span>
+        <div class="flex gap-2">
+          <a href="/founders" class="text-tbf-teal hover:underline">Founders</a>
+          <span>·</span>
+          <a href="/wealth" class="text-tbf-teal hover:underline">Wealth</a>
+          <span>·</span>
+          <a href="/bombay" class="text-tbf-teal hover:underline">Bombay</a>
+        </div>
+      </div>
+    </div>
+  </div>

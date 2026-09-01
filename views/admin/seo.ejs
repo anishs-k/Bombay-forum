@@ -1,0 +1,87 @@
+<%- include('../partials/admin-header') %>
+
+<div class="space-y-6 max-w-5xl">
+  
+  <div class="pb-4 border-b border-tbf-border">
+    <h3 class="font-serif text-2xl font-bold text-tbf-navy">SEO & Distribution Architecture</h3>
+    <p class="text-xs text-gray-500 mt-1">Audit dynamic XML feeds, Schema.org structured data, and search engine integration.</p>
+  </div>
+
+  <!-- Endpoints Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    
+    <!-- RSS 2.0 Card -->
+    <div class="bg-white p-6 border border-tbf-border flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] uppercase font-bold tracking-widest text-tbf-teal">Distribution Feed</span>
+          <span class="bg-emerald-100 text-emerald-800 text-[9px] font-bold px-2 py-0.5 uppercase">Active</span>
+        </div>
+        <h4 class="font-serif font-bold text-xl text-tbf-navy">RSS 2.0 XML</h4>
+        <p class="text-xs text-gray-600 mt-2">Latest 20 published stories formatted in standards-compliant RSS 2.0 XML with category tags and image enclosures.</p>
+      </div>
+      <div class="pt-4 mt-4 border-t border-tbf-border">
+        <a href="/rss" target="_blank" class="text-xs font-bold text-tbf-teal hover:underline flex items-center gap-1">
+          Open Feed (/rss) ↗
+        </a>
+      </div>
+    </div>
+
+    <!-- XML Sitemap Card -->
+    <div class="bg-white p-6 border border-tbf-border flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] uppercase font-bold tracking-widest text-tbf-teal">Search Engine Index</span>
+          <span class="bg-emerald-100 text-emerald-800 text-[9px] font-bold px-2 py-0.5 uppercase">Dynamic</span>
+        </div>
+        <h4 class="font-serif font-bold text-xl text-tbf-navy">XML Sitemap</h4>
+        <p class="text-xs text-gray-600 mt-2">Automatically generates clean URL nodes for all static routes, published articles, and profile hubs.</p>
+      </div>
+      <div class="pt-4 mt-4 border-t border-tbf-border">
+        <a href="/sitemap.xml" target="_blank" class="text-xs font-bold text-tbf-teal hover:underline flex items-center gap-1">
+          Open Sitemap (/sitemap.xml) ↗
+        </a>
+      </div>
+    </div>
+
+    <!-- Robots.txt Card -->
+    <div class="bg-white p-6 border border-tbf-border flex flex-col justify-between">
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] uppercase font-bold tracking-widest text-tbf-teal">Crawler Directives</span>
+          <span class="bg-emerald-100 text-emerald-800 text-[9px] font-bold px-2 py-0.5 uppercase">Configured</span>
+        </div>
+        <h4 class="font-serif font-bold text-xl text-tbf-navy">Robots.txt</h4>
+        <p class="text-xs text-gray-600 mt-2">Instructs search engine bots and provides direct canonical link to the XML sitemap.</p>
+      </div>
+      <div class="pt-4 mt-4 border-t border-tbf-border">
+        <a href="/robots.txt" target="_blank" class="text-xs font-bold text-tbf-teal hover:underline flex items-center gap-1">
+          Open Robots.txt ↗
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Schema Markup Checklist -->
+  <div class="bg-white p-6 border border-tbf-border space-y-4">
+    <h4 class="font-serif font-bold text-lg text-tbf-navy pb-3 border-b border-tbf-border">Structured Data & Schema.org Enforcement</h4>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-sans">
+      <div class="p-4 bg-surface border-l-2 border-emerald-500">
+        <div class="font-bold text-tbf-navy">NewsArticle Schema</div>
+        <div class="text-gray-600 mt-1">Rendered on every article page with headline, author, publisher, and timestamp tags.</div>
+      </div>
+      <div class="p-4 bg-surface border-l-2 border-emerald-500">
+        <div class="font-bold text-tbf-navy">Person Schema</div>
+        <div class="text-gray-600 mt-1">Rendered on all founder and creator profile hubs with role, company, and quote metadata.</div>
+      </div>
+      <div class="p-4 bg-surface border-l-2 border-emerald-500">
+        <div class="font-bold text-tbf-navy">OpenGraph & Twitter Cards</div>
+        <div class="text-gray-600 mt-1">High-impact 1200×630 social share cards rendered on all pages.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%- include('../partials/admin-footer') %>

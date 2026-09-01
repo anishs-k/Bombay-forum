@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "tbf_1787744782546_z58v2p353",
+    "createdAt": "2026-08-26T11:46:22.546Z",
+    "updatedAt": "2026-08-26T11:46:22.546Z",
+    "coverStoryId": "tbf_1787744782546_ideauujtp",
+    "editorsPickIds": [
+      "tbf_1787744782546_pz6odim9b",
+      "tbf_1787744782546_srnuulu3o",
+      "tbf_1787744782546_56l57bfj5"
+    ],
+    "featuredThisWeekIds": [
+      "tbf_1787744782546_mmvcrytfj",
+      "tbf_1787744782546_ylu35uxzu",
+      "tbf_1787744782546_jk0f1p40x"
+    ],
+    "sponsoredStrip": {
+      "enabled": true,
+      "label": "Partner Dispatch",
+      "text": "Private wealth advisory and bespoke estate planning for India’s next-generation business families.",
+      "linkUrl": "/spotlight",
+      "sponsorName": "Kotak Private"
+    },
+    "active": true
+  }
+]

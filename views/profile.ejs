@@ -1,0 +1,145 @@
+<%- include('partials/header') %>
+
+<main class="flex-grow py-8 sm:py-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Split Hero: Portrait & Bio Details (Brief Section 8.1 & 10) -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-14 pb-12 border-b border-tbf-border">
+      
+      <!-- Portrait Column (5 Cols) -->
+      <div class="md:col-span-5">
+        <div class="border border-tbf-border bg-surface p-2 shadow-sm">
+          <img src="<%= profile.heroImage %>" alt="<%= profile.name %>" class="w-full aspect-[4/5] object-cover <%= profile.type === 'founder' ? 'grayscale' : '' %>">
+        </div>
+      </div>
+
+      <!-- Details Column (7 Cols) -->
+      <div class="md:col-span-7 flex flex-col justify-between space-y-6">
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="tbf-category-badge text-xs"><%= profile.type === 'founder' ? 'Founder Profile' : 'Creator Profile' %></span>
+            <span class="text-xs text-gray-400">•</span>
+            <span class="text-xs text-gray-500 font-sans"><%= profile.location %></span>
+          </div>
+
+          <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-tbf-navy mt-2 leading-tight">
+            <%= profile.name %>
+          </h1>
+          
+          <p class="text-sm sm:text-base font-bold uppercase tracking-widest text-tbf-teal mt-1">
+            <%= profile.role ? `${profile.role} · ${profile.company}` : profile.medium %>
+          </p>
+
+          <!-- Signature Pull Quote (Most Important Field: Brief Section 10) -->
+          <div class="my-6 p-6 bg-surface border-l-4 border-tbf-teal">
+            <p class="font-serif italic text-xl sm:text-2xl text-tbf-navy leading-snug">
+              "<%= profile.quote %>"
+            </p>
+          </div>
+
+          <!-- Bio Paragraphs -->
+          <div class="space-y-3 text-sm sm:text-base text-gray-700 font-sans leading-relaxed">
+            <% if (profile.bio && profile.bio.length > 0) { %>
+              <% profile.bio.forEach(para => { %>
+                <p><%= para %></p>
+              <% }) %>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Social & Platform Links -->
+        <% if (profile.platforms && Object.keys(profile.platforms).length > 0) { %>
+          <div class="pt-4 border-t border-tbf-border flex flex-wrap items-center gap-3">
+            <span class="text-xs font-bold uppercase text-gray-400">Links:</span>
+            <% for (const [platform, link] of Object.entries(profile.platforms)) { %>
+              <% if (link) { %>
+                <a href="<%= link %>" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-tbf-navy hover:text-tbf-teal px-3 py-1 bg-surface border border-tbf-border capitalize">
+                  <%= platform %> ↗
+                </a>
+              <% } %>
+            <% } %>
+          </div>
+        <% } %>
+
+      </div>
+
+    </div>
+
+    <!-- Stats Strip (For Founders) or Showcase Metrics -->
+    <% if (profile.stats && Object.keys(profile.stats).length > 0) { %>
+      <section class="py-10 border-b border-tbf-border bg-tbf-surface px-6 sm:px-10 my-8">
+        <h3 class="text-xs uppercase font-bold tracking-widest text-tbf-teal mb-6">Key Enterprise Metrics</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+          <% for (const [key, val] of Object.entries(profile.stats)) { %>
+            <div>
+              <div class="text-[10px] uppercase font-bold tracking-wider text-gray-500 mb-1"><%= key %></div>
+              <div class="font-serif text-2xl sm:text-3xl font-bold text-tbf-navy"><%= val %></div>
+            </div>
+          <% } %>
+        </div>
+      </section>
+    <% } %>
+
+    <!-- Long-Form Profile Narrative (Markdown Body) -->
+    <% if (profile.content) { %>
+      <div class="max-w-3xl mx-auto py-12">
+        <div class="tbf-article-content">
+          <%- renderArticleContent(profile.content) %>
+        </div>
+      </div>
+    <% } %>
+
+    <!-- More Profiles Strip -->
+    <% if (moreProfiles && moreProfiles.length > 0) { %>
+      <section class="pt-16 border-t-2 border-tbf-navy">
+        <div class="flex items-center justify-between mb-8">
+          <h3 class="font-serif text-2xl font-bold text-tbf-navy">
+            More <%= profile.type === 'founder' ? 'Founders' : 'Creators' %>
+          </h3>
+          <a href="/<%= profile.type === 'founder' ? 'founders' : 'creators' %>" class="text-xs font-bold uppercase tracking-widest text-tbf-teal hover:underline">
+            View All →
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <% moreProfiles.forEach(p => { %>
+            <div class="bg-white border border-tbf-border p-5 group flex flex-col justify-between">
+              <div>
+                <a href="/<%= p.type === 'founder' ? 'founder-profile' : 'creator-profile' %>/<%= p.slug %>" class="block overflow-hidden mb-3">
+                  <img src="<%= p.heroImage %>" alt="<%= p.name %>" class="w-full aspect-[4/5] object-cover <%= p.type === 'founder' ? 'grayscale group-hover:grayscale-0' : '' %> transition">
+                </a>
+                <span class="text-[10px] uppercase font-bold text-tbf-teal"><%= p.company || p.medium %></span>
+                <h4 class="font-serif text-xl font-bold text-tbf-navy group-hover:text-tbf-teal transition mt-1">
+                  <a href="/<%= p.type === 'founder' ? 'founder-profile' : 'creator-profile' %>/<%= p.slug %>"><%= p.name %></a>
+                </h4>
+              </div>
+              <div class="pt-3 mt-3 border-t border-tbf-border flex items-center justify-between text-xs">
+                <span class="text-gray-500"><%= p.location %></span>
+                <a href="/<%= p.type === 'founder' ? 'founder-profile' : 'creator-profile' %>/<%= p.slug %>" class="font-bold text-tbf-teal hover:underline">Read →</a>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </section>
+    <% } %>
+
+  </div>
+</main>
+
+<!-- Person Schema JSON-LD (Brief Section 11) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "<%= profile.name %>",
+  "jobTitle": "<%= profile.role || profile.medium %>",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "<%= profile.company || 'Independent' %>"
+  },
+  "image": "<%= profile.heroImage %>",
+  "description": "<%= (profile.metaDesc || profile.quote).replace(/"/g, '\\"') %>"
+}
+</script>
+
+<%- include('partials/footer') %>

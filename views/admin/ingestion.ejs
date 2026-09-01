@@ -1,0 +1,146 @@
+<%- include('../partials/admin-header') %>
+
+<div class="space-y-8 max-w-6xl">
+  
+  <!-- Ingestion Trigger Banner & Live Streaming Terminal -->
+  <div class="bg-tbf-navy text-white p-6 sm:p-8 border border-[#1A3347]">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-[#1A3347]">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2.5 h-2.5 bg-emerald-400"></span>
+          <span class="text-[10px] uppercase font-bold tracking-widest text-tbf-sage">Automated Ingestion Engine (4-Hour Schedule)</span>
+        </div>
+        <h3 class="font-serif text-2xl font-bold text-white mt-1">Multi-Source RSS & LLM Pipeline</h3>
+        <p class="text-xs text-gray-300 mt-1">Fetches feeds, deduplicates by SHA256 hash, and generates TBF-voice drafts awaiting human review.</p>
+      </div>
+
+      <button id="trigger-ingestion-btn" class="tbf-btn-teal py-3 px-6 text-xs uppercase font-bold tracking-wider flex-shrink-0">
+        ⚡ Trigger Content Ingestion Now
+      </button>
+    </div>
+
+    <!-- Live Streaming Execution Log Terminal -->
+    <div class="mt-6">
+      <div class="flex items-center justify-between pb-2 mb-2 text-[10px] uppercase font-bold tracking-widest text-tbf-sage">
+        <span>Live Pipeline Terminal Log</span>
+        <span class="font-mono">Status: Standby / Polling</span>
+      </div>
+      <div id="ingestion-log-terminal" class="bg-[#06121C] border border-[#1A3347] p-4 h-48 overflow-y-auto font-mono text-xs text-gray-400 space-y-1">
+        <div class="text-gray-500">[System] Pipeline ready. Click 'Trigger Content Ingestion Now' or wait for scheduled cron.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active Source Registry -->
+  <div class="bg-white border border-tbf-border p-6 space-y-6">
+    <div class="flex items-center justify-between pb-4 border-b border-tbf-border">
+      <div>
+        <h4 class="font-serif text-xl font-bold text-tbf-navy">Source Registry (Brief Section 4.5 & 4.3)</h4>
+        <p class="text-xs text-gray-500 mt-0.5">External feeds, publication RSS endpoints, and Google News query streams.</p>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-surface border-b border-tbf-border text-[10px] uppercase font-bold tracking-widest text-gray-500">
+            <th class="p-4">Source Name</th>
+            <th class="p-4">Endpoint URL</th>
+            <th class="p-4">Pillar</th>
+            <th class="p-4">Cadence</th>
+            <th class="p-4">Status</th>
+            <th class="p-4">Last Polled</th>
+            <th class="p-4 text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="sources-table-body" class="divide-y divide-tbf-border">
+          <!-- Populated via admin.js -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Add Source Box -->
+    <div class="pt-6 border-t border-tbf-border">
+      <h5 class="font-serif font-bold text-base text-tbf-navy mb-4">Register New Feed Source</h5>
+      <form id="add-source-form" class="grid grid-cols-1 sm:grid-cols-5 gap-3 text-xs">
+        <input type="text" id="new-source-name" required placeholder="Source Name (e.g. Inc42)" class="p-2.5 bg-[#FAFAF5] border border-tbf-border">
+        <input type="url" id="new-source-url" required placeholder="Feed URL (https://...)" class="p-2.5 bg-[#FAFAF5] border border-tbf-border sm:col-span-2 font-mono">
+        <select id="new-source-category" required class="p-2.5 bg-[#FAFAF5] border border-tbf-border">
+          <% categories.forEach(cat => { %>
+            <option value="<%= cat.slug %>"><%= cat.name %></option>
+          <% }) %>
+        </select>
+        <button type="submit" class="tbf-btn-primary py-2.5 px-4 text-xs font-bold uppercase">
+          + Add Feed
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- LLM Prompt Template & Engine Settings (Brief Section 5.3) -->
+  <div class="bg-white border border-tbf-border p-6 space-y-6">
+    <div class="pb-3 border-b border-tbf-border">
+      <h4 class="font-serif text-xl font-bold text-tbf-navy">LLM Rewriting Engine Configuration</h4>
+      <p class="text-xs text-gray-500 mt-0.5">Customize the prompt template, confidence rejection threshold, and API keys.</p>
+    </div>
+
+    <form id="ingestion-settings-form" class="space-y-4 text-xs">
+      <div>
+        <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Server-Side LLM Prompt Template</label>
+        <textarea id="setting-prompt-template" rows="8" class="w-full bg-[#FAFAF5] border border-tbf-border p-3 font-mono text-xs focus:outline-none focus:border-tbf-teal leading-relaxed"></textarea>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Confidence Threshold (Reject if &lt; value)</label>
+          <input type="number" step="0.05" min="0.1" max="1.0" id="setting-confidence-threshold" value="0.70" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 font-mono">
+        </div>
+
+        <div>
+          <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Google Gemini API Key</label>
+          <input type="password" id="setting-gemini-key" placeholder="AIzaSy..." class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 font-mono">
+        </div>
+
+        <div>
+          <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Publish Webhook URL (n8n / Distribution)</label>
+          <input type="url" id="setting-webhook-url" placeholder="https://n8n.yourdomain.com/webhook/..." class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 font-mono">
+        </div>
+      </div>
+
+      <div class="flex justify-end pt-2">
+        <button type="submit" class="tbf-btn-primary py-2.5 px-6 font-bold uppercase text-xs">
+          Save Engine Configuration
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Deduplication Audit Log -->
+  <div class="bg-white border border-tbf-border p-6 space-y-4">
+    <div class="pb-3 border-b border-tbf-border">
+      <h4 class="font-serif text-xl font-bold text-tbf-navy">Deduplication Hash Log (`ingested` collection)</h4>
+      <p class="text-xs text-gray-500 mt-0.5">Records SHA256 hashes of all parsed external items to prevent redundant drafting.</p>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-surface border-b border-tbf-border text-[10px] uppercase font-bold tracking-widest text-gray-500">
+            <th class="p-3">Source Item Headline</th>
+            <th class="p-3">Source Name</th>
+            <th class="p-3">Category</th>
+            <th class="p-3">SHA256 Hash</th>
+            <th class="p-3">Confidence</th>
+            <th class="p-3">Ingested At</th>
+          </tr>
+        </thead>
+        <tbody id="ingested-history-table-body" class="divide-y divide-tbf-border">
+          <!-- Populated via admin.js -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<%- include('../partials/admin-footer') %>

@@ -1,0 +1,11 @@
+[
+  {
+    "_id": "tbf_1787744782541_ozoc7nalu",
+    "createdAt": "2026-08-26T11:46:22.541Z",
+    "updatedAt": "2026-08-26T11:46:22.545Z",
+    "email": "admin@thebombayforum.com",
+    "passwordHash": "$2b$10$zoL2H2eaQGPdbl76oODRQujqJeqjOQX7vnjR39OpTfDYsq6uxlVxm",
+    "name": "Editor-in-Chief",
+    "role": "admin"
+  }
+]

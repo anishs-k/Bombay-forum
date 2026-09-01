@@ -1,0 +1,105 @@
+<%- include('../partials/admin-header') %>
+
+<div class="space-y-8">
+
+  <!-- Overview Stats Grid -->
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" id="dashboard-stats-grid">
+    
+    <div class="bg-white p-5 border border-tbf-border">
+      <span class="text-[10px] uppercase font-bold text-gray-500 tracking-wider">Total Articles</span>
+      <div class="font-serif text-3xl font-bold text-tbf-navy mt-1" id="stat-total-articles">—</div>
+    </div>
+
+    <div class="bg-white p-5 border border-tbf-border border-l-4 border-emerald-500">
+      <span class="text-[10px] uppercase font-bold text-emerald-700 tracking-wider">Live Published</span>
+      <div class="font-serif text-3xl font-bold text-emerald-800 mt-1" id="stat-published-articles">—</div>
+    </div>
+
+    <div class="bg-white p-5 border border-tbf-border border-l-4 border-amber-500">
+      <span class="text-[10px] uppercase font-bold text-amber-700 tracking-wider">Drafts (Gate)</span>
+      <div class="font-serif text-3xl font-bold text-amber-800 mt-1" id="stat-draft-articles">—</div>
+    </div>
+
+    <div class="bg-white p-5 border border-tbf-border">
+      <span class="text-[10px] uppercase font-bold text-gray-500 tracking-wider">Active Sources</span>
+      <div class="font-serif text-3xl font-bold text-tbf-navy mt-1" id="stat-total-sources">—</div>
+    </div>
+
+    <div class="bg-white p-5 border border-tbf-border">
+      <span class="text-[10px] uppercase font-bold text-gray-500 tracking-wider">Subscribers</span>
+      <div class="font-serif text-3xl font-bold text-tbf-teal mt-1" id="stat-total-subscribers">—</div>
+    </div>
+
+    <div class="bg-white p-5 border border-tbf-border">
+      <span class="text-[10px] uppercase font-bold text-gray-500 tracking-wider">Total Views</span>
+      <div class="font-serif text-3xl font-bold text-tbf-navy mt-1" id="stat-total-views">—</div>
+    </div>
+
+  </div>
+
+  <!-- Main Section: Mandatory Review Gate & Quick Ingestion Trigger -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- Drafts Awaiting Review Gate (Left 8 Cols) -->
+    <div class="lg:col-span-8 bg-white border border-tbf-border">
+      <div class="p-6 border-b border-tbf-border flex items-center justify-between">
+        <div>
+          <span class="text-[10px] uppercase font-bold tracking-widest text-amber-600 block">Mandatory Review Gate (Rule 5.2)</span>
+          <h3 class="font-serif text-xl font-bold text-tbf-navy mt-0.5">Recent Drafts Awaiting Human Approval</h3>
+        </div>
+        <a href="/admin/articles?status=draft" class="text-xs font-bold text-tbf-teal hover:underline">View All Drafts →</a>
+      </div>
+
+      <div id="dashboard-drafts-list" class="divide-y divide-tbf-border">
+        <div class="p-6 text-center text-gray-400 text-xs">Loading pending drafts...</div>
+      </div>
+    </div>
+
+    <!-- Quick Ingestion & Distribution Status (Right 4 Cols) -->
+    <div class="lg:col-span-4 space-y-6">
+      
+      <!-- Ingestion Pipeline Trigger Card -->
+      <div class="bg-tbf-navy text-white p-6 border border-[#1A3347]">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-[10px] uppercase font-bold tracking-widest text-tbf-sage">Ingestion Pipeline</span>
+          <span class="inline-block w-2 h-2 bg-emerald-400"></span>
+        </div>
+        <h4 class="font-serif text-xl font-bold text-white mb-2">Automated Ingestion</h4>
+        <p class="text-xs text-gray-300 mb-6 leading-relaxed">
+          Polls 16 active RSS feeds and Google News search streams, calculates deduplication hashes, and generates TBF-voice drafts.
+        </p>
+        <div class="space-y-3">
+          <a href="/admin/ingestion" class="w-full tbf-btn-teal py-2.5 text-xs text-center block">
+            Open Ingestion Console →
+          </a>
+          <a href="/admin/homepage" class="w-full text-center block text-xs text-tbf-sage hover:text-white py-1">
+            Configure Homepage Slots
+          </a>
+        </div>
+      </div>
+
+      <!-- Category Coverage Distribution -->
+      <div class="bg-white p-6 border border-tbf-border">
+        <h4 class="font-serif text-base font-bold text-tbf-navy pb-3 border-b border-tbf-border mb-4">Pillar Distribution</h4>
+        <div class="space-y-3 text-xs">
+          <% categories.forEach(cat => { %>
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <span class="font-bold text-gray-700 capitalize"><%= cat.name %></span>
+                <span class="font-mono text-gray-500 font-bold" id="cat-count-<%= cat.slug %>">0</span>
+              </div>
+              <div class="w-full bg-gray-100 h-1.5 overflow-hidden">
+                <div class="bg-tbf-teal h-full transition-all duration-500" id="cat-pct-<%= cat.slug %>" style="width: 0%;"></div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<%- include('../partials/admin-footer') %>

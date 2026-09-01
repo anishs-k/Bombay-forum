@@ -1,0 +1,26 @@
+[
+  {
+    "_id": "tbf_1787744856624_pny26hme5",
+    "createdAt": "2026-08-26T11:47:36.624Z",
+    "updatedAt": "2026-08-26T11:47:36.624Z",
+    "email": "test_1787744856618@example.com",
+    "name": "",
+    "status": "active"
+  },
+  {
+    "_id": "tbf_1787744782547_3erjwxgf7",
+    "createdAt": "2026-08-26T11:46:22.547Z",
+    "updatedAt": "2026-08-26T11:46:22.547Z",
+    "email": "editorial@thebombayforum.com",
+    "name": "TBF Desk",
+    "status": "active"
+  },
+  {
+    "_id": "tbf_1787744782546_p48bk9tmi",
+    "createdAt": "2026-08-26T11:46:22.546Z",
+    "updatedAt": "2026-08-26T11:46:22.546Z",
+    "email": "ayush@example.com",
+    "name": "Ayush",
+    "status": "active"
+  }
+]

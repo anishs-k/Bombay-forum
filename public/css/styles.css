@@ -1,0 +1,297 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Manrope:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&display=swap');
+
+/* --- Strict TBF Design Tokens --- */
+:root {
+  --tbf-navy: #0E2130;
+  --tbf-admin-sidebar: #091C2A;
+  --tbf-teal: #4A8090;
+  --tbf-teal-light: #8BB0B8;
+  --tbf-sage: #B8D4CC;
+  --tbf-cream: #FAFAF5;
+  --tbf-surface: #EEEEE9;
+  --tbf-border: #D6D6CF;
+  --tbf-text-dark: #121A20;
+  --tbf-text-muted: #62727D;
+}
+
+/* Zero Border Radius Everywhere (Brief 9: Sharp Edges Non-Negotiable) */
+*, *::before, *::after {
+  border-radius: 0 !important;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--tbf-cream);
+  color: var(--tbf-text-dark);
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+/* Typography Classes */
+.font-serif {
+  font-family: 'Newsreader', 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-cormorant {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+/* Colors */
+.bg-tbf-navy { background-color: var(--tbf-navy); }
+.bg-tbf-sidebar { background-color: var(--tbf-admin-sidebar); }
+.bg-tbf-cream { background-color: var(--tbf-cream); }
+.bg-tbf-surface { background-color: var(--tbf-surface); }
+.bg-tbf-teal { background-color: var(--tbf-teal); }
+.text-tbf-navy { color: var(--tbf-navy); }
+.text-tbf-teal { color: var(--tbf-teal); }
+.text-tbf-teal-light { color: var(--tbf-teal-light); }
+.text-tbf-sage { color: var(--tbf-sage); }
+.border-tbf-border { border-color: var(--tbf-border); }
+.border-tbf-teal { border-color: var(--tbf-teal); }
+
+/* --- 6 Building Blocks for Articles (Brief Section 7) --- */
+.tbf-article-content {
+  font-family: 'Manrope', sans-serif;
+  color: #1a252f;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.tbf-article-content p {
+  font-size: 18px;
+  line-height: 1.8;
+  opacity: 0.92;
+  margin-bottom: 24px;
+}
+
+.tbf-article-content strong {
+  font-weight: 700;
+  color: #0E2130;
+}
+
+.tbf-article-content h2 {
+  font-family: 'Newsreader', serif;
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--tbf-navy);
+  margin-top: 56px;
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.tbf-article-content h3 {
+  font-family: 'Newsreader', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--tbf-navy);
+  margin-top: 40px;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.tbf-article-content blockquote,
+.tbf-pullquote {
+  font-family: 'Newsreader', 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 34px;
+  line-height: 1.35;
+  color: var(--tbf-navy);
+  border-left: 4px solid var(--tbf-teal);
+  padding: 12px 0 12px 36px;
+  margin: 48px 0;
+  background: transparent;
+}
+
+@media (min-width: 768px) {
+  .tbf-article-content blockquote,
+  .tbf-pullquote {
+    font-size: 40px;
+    padding-left: 44px;
+    margin: 56px 0;
+  }
+}
+
+.tbf-keystat-container {
+  background-color: var(--tbf-surface);
+  border-left: 3px solid var(--tbf-teal);
+  padding: 24px 32px;
+  margin: 40px 0;
+}
+
+.tbf-keystat-number {
+  font-family: 'Newsreader', serif;
+  font-size: 56px;
+  font-weight: 600;
+  color: var(--tbf-teal);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+@media (min-width: 768px) {
+  .tbf-keystat-number {
+    font-size: 68px;
+  }
+}
+
+.tbf-keystat-label {
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tbf-text-muted);
+  font-weight: 700;
+}
+
+.tbf-inline-image {
+  margin: 48px 0;
+  width: 100%;
+}
+
+.tbf-inline-image img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.tbf-inline-caption {
+  font-size: 11px;
+  font-style: italic;
+  color: var(--tbf-text-muted);
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+/* Category Badge Styling */
+.tbf-category-badge {
+  font-family: 'Manrope', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tbf-teal);
+  display: inline-block;
+}
+
+/* Buttons */
+.tbf-btn-primary {
+  background-color: var(--tbf-navy);
+  color: #FAFAF5;
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border: 1px solid var(--tbf-navy);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.tbf-btn-primary:hover {
+  background-color: var(--tbf-teal);
+  border-color: var(--tbf-teal);
+  color: #FFFFFF;
+}
+
+.tbf-btn-secondary {
+  background-color: transparent;
+  color: var(--tbf-navy);
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border: 1px solid var(--tbf-navy);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.tbf-btn-secondary:hover {
+  background-color: var(--tbf-navy);
+  color: #FAFAF5;
+}
+
+.tbf-btn-teal {
+  background-color: var(--tbf-teal);
+  color: #FFFFFF;
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border: 1px solid var(--tbf-teal);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.tbf-btn-teal:hover {
+  background-color: #386472;
+  border-color: #386472;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--tbf-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: #A0B2BC;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--tbf-teal);
+}
+
+/* Article Card Hover Effects */
+.tbf-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.tbf-card:hover .tbf-card-title {
+  color: var(--tbf-teal);
+}
+
+/* Toast Notifications */
+#tbf-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: var(--tbf-navy);
+  color: #FFFFFF;
+  padding: 16px 24px;
+  border-left: 4px solid var(--tbf-teal);
+  font-family: 'Manrope', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 9999;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  display: none;
+  max-width: 400px;
+}

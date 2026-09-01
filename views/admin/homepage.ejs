@@ -1,0 +1,110 @@
+<%- include('../partials/admin-header') %>
+
+<form id="homepage-config-form" class="space-y-8 max-w-5xl">
+  
+  <div class="flex items-center justify-between pb-4 border-b border-tbf-border">
+    <div>
+      <h3 class="font-serif text-2xl font-bold text-tbf-navy">Homepage Slot Controller</h3>
+      <p class="text-xs text-gray-500 mt-1">Direct editorial control over the most visible slots on The Bombay Forum front page.</p>
+    </div>
+    <button type="submit" class="tbf-btn-teal py-2.5 px-6 text-xs uppercase font-bold">
+      Save & Publish Layout →
+    </button>
+  </div>
+
+  <!-- 1. Cover Story Slot -->
+  <div class="bg-white p-6 border border-tbf-border space-y-4">
+    <div class="flex items-center justify-between pb-2 border-b border-tbf-border">
+      <span class="text-[10px] uppercase font-bold tracking-widest text-tbf-teal">Hero Placement</span>
+      <span class="text-xs font-bold text-tbf-navy">Single Most Visible Slot</span>
+    </div>
+    <h4 class="font-serif font-bold text-lg text-tbf-navy">Cover Story Selection</h4>
+    <p class="text-xs text-gray-500">The lead headline and hero image presented at the top of the homepage.</p>
+    <select id="slot-cover-story" class="w-full bg-[#FAFAF5] border border-tbf-border p-3 text-xs font-bold text-tbf-navy focus:outline-none focus:border-tbf-teal"></select>
+  </div>
+
+  <!-- 2. Editor's Picks (3 Slots) -->
+  <div class="bg-white p-6 border border-tbf-border space-y-4">
+    <div class="pb-2 border-b border-tbf-border">
+      <span class="text-[10px] uppercase font-bold tracking-widest text-tbf-teal">Sidebar Curations</span>
+      <h4 class="font-serif font-bold text-lg text-tbf-navy mt-1">Editor’s Picks (3 Stories)</h4>
+    </div>
+    <div class="space-y-3">
+      <div>
+        <label class="block text-[10px] uppercase font-bold text-gray-500 mb-1">Pick #1</label>
+        <select id="slot-pick-1" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs"></select>
+      </div>
+      <div>
+        <label class="block text-[10px] uppercase font-bold text-gray-500 mb-1">Pick #2</label>
+        <select id="slot-pick-2" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs"></select>
+      </div>
+      <div>
+        <label class="block text-[10px] uppercase font-bold text-gray-500 mb-1">Pick #3</label>
+        <select id="slot-pick-3" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs"></select>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Featured This Week (3 Slots) -->
+  <div class="bg-white p-6 border border-tbf-border space-y-4">
+    <div class="pb-2 border-b border-tbf-border">
+      <span class="text-[10px] uppercase font-bold tracking-widest text-tbf-teal">Surface Section</span>
+      <h4 class="font-serif font-bold text-lg text-tbf-navy mt-1">Featured This Week (3 Cards)</h4>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label class="block text-[10px] uppercase font-bold text-gray-500 mb-1">Card #1</label>
+        <select id="slot-feat-1" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs"></select>
+      </div>
+      <div>
+        <label class="block text-[10px] uppercase font-bold text-gray-500 mb-1">Card #2</label>
+        <select id="slot-feat-2" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs"></select>
+      </div>
+      <div>
+        <label class="block text-[10px] uppercase font-bold text-gray-500 mb-1">Card #3</label>
+        <select id="slot-feat-3" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs"></select>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Sponsored Strip Configuration -->
+  <div class="bg-white p-6 border border-tbf-border space-y-4">
+    <div class="flex items-center justify-between pb-2 border-b border-tbf-border">
+      <h4 class="font-serif font-bold text-lg text-tbf-navy">Sponsored Partner Strip</h4>
+      <label class="flex items-center gap-2 text-xs font-bold text-tbf-navy cursor-pointer">
+        <input type="checkbox" id="sponsored-enabled" class="w-4 h-4">
+        <span>Enable Strip on Homepage</span>
+      </label>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-[10px] uppercase font-bold text-gray-500 mb-1">Badge Label</label>
+        <input type="text" id="sponsored-label" value="Partner Dispatch" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs">
+      </div>
+      <div>
+        <label class="block text-[10px] uppercase font-bold text-gray-500 mb-1">Sponsor Brand Name</label>
+        <input type="text" id="sponsored-sponsor" placeholder="e.g. Kotak Private" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs">
+      </div>
+    </div>
+
+    <div>
+      <label class="block text-[10px] uppercase font-bold text-gray-500 mb-1">Descriptive Tagline / Callout</label>
+      <input type="text" id="sponsored-text" placeholder="e.g. Private wealth advisory and bespoke estate planning..." class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs">
+    </div>
+
+    <div>
+      <label class="block text-[10px] uppercase font-bold text-gray-500 mb-1">Link URL</label>
+      <input type="text" id="sponsored-link" value="/spotlight" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs font-mono">
+    </div>
+  </div>
+
+  <div class="flex justify-end pt-4">
+    <button type="submit" class="tbf-btn-teal py-3 px-8 text-xs uppercase font-bold">
+      Save & Publish Layout →
+    </button>
+  </div>
+
+</form>
+
+<%- include('../partials/admin-footer') %>

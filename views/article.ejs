@@ -1,0 +1,170 @@
+<%- include('partials/header') %>
+
+<!-- Reading Progress Bar -->
+<div class="fixed top-0 left-0 h-1 bg-tbf-teal z-50 transition-all duration-150" id="reading-progress" style="width: 0%;"></div>
+
+<main class="flex-grow py-8 sm:py-12">
+  <article class="max-w-4xl mx-auto px-4 sm:px-6">
+    
+    <!-- Article Header Meta -->
+    <header class="space-y-4 mb-8">
+      <div class="flex items-center gap-3 text-xs text-gray-500">
+        <a href="/<%= article.category %>" class="tbf-category-badge text-xs"><%= article.category %></a>
+        <span>•</span>
+        <span class="font-sans uppercase font-bold text-gray-600"><%= article.format || 'feature' %></span>
+        <span>•</span>
+        <span><%= formatDate(article.publishedAt || article.createdAt) %></span>
+        <span>•</span>
+        <span><%= calculateReadingTime(article.content) %></span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold text-tbf-navy leading-[1.15] tracking-tight">
+        <%= article.title %>
+      </h1>
+
+      <!-- Deck / Subheadline -->
+      <p class="font-sans text-lg sm:text-xl text-gray-600 font-medium leading-relaxed pt-2">
+        <%= article.excerpt %>
+      </p>
+
+      <!-- Author & Social Share Actions -->
+      <div class="pt-6 pb-4 border-y border-tbf-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 bg-tbf-navy text-white flex items-center justify-center font-serif font-bold text-sm">
+            <%= (article.author || 'TBF')[0] %>
+          </div>
+          <div>
+            <div class="font-bold text-tbf-navy"><%= article.author || 'TBF Editorial Desk' %></div>
+            <div class="text-gray-500">The Bombay Forum</div>
+          </div>
+        </div>
+
+        <!-- Share Actions -->
+        <div class="flex items-center gap-2 text-xs">
+          <span class="text-gray-400 font-bold uppercase tracking-wider text-[10px] mr-1">Share:</span>
+          <button onclick="shareArticle('twitter')" class="p-2 border border-tbf-border hover:bg-surface text-gray-700" title="Share on Twitter/X">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </button>
+          <button onclick="shareArticle('linkedin')" class="p-2 border border-tbf-border hover:bg-surface text-gray-700" title="Share on LinkedIn">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </button>
+          <button onclick="shareArticle('whatsapp')" class="p-2 border border-tbf-border hover:bg-surface text-gray-700" title="Share on WhatsApp">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+          </button>
+          <button onclick="shareArticle('copy')" class="p-2 border border-tbf-border hover:bg-surface text-gray-700 font-bold" title="Copy Link">
+            🔗 Link
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Image & Caption (Brief 3.6: 1600x900 required) -->
+    <figure class="mb-10">
+      <img src="<%= article.heroImage %>" alt="<%= article.title %>" class="w-full aspect-[16/9] object-cover shadow-sm">
+      <% if (article.heroCaption) { %>
+        <figcaption class="text-xs italic text-gray-500 mt-2.5 font-sans">
+          <%= article.heroCaption %>
+        </figcaption>
+      <% } %>
+    </figure>
+
+    <!-- Source Attribution Indicator (If Ingested / Brief 4.1) -->
+    <% if (article.sourceUrl) { %>
+      <div class="bg-surface border-l-2 border-tbf-teal px-4 py-2.5 mb-8 text-xs text-gray-600 flex items-center justify-between">
+        <span>Based on reporting from <strong class="text-tbf-navy"><%= article.sourceName || 'archival sources' %></strong>, substantially rewritten in TBF voice.</span>
+        <a href="<%= article.sourceUrl %>" target="_blank" rel="noopener noreferrer" class="text-tbf-teal font-bold hover:underline ml-2">Original Source ↗</a>
+      </div>
+    <% } %>
+
+    <!-- Key Stats Box (If present in metadata) -->
+    <% if (article.keyStats && article.keyStats.length > 0) { %>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-8">
+        <% article.keyStats.forEach(stat => { %>
+          <div class="tbf-keystat-container my-0">
+            <div class="tbf-keystat-number"><%= stat.value %></div>
+            <div class="tbf-keystat-label"><%= stat.label %></div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+
+    <!-- Body Rendered with 6 Building Blocks (Brief Section 7) -->
+    <div class="tbf-article-content">
+      <%- renderArticleContent(article.content, article.pullQuotes, article.keyStats, article.inlineImages) %>
+    </div>
+
+    <!-- Tags Strip -->
+    <% if (article.tags && article.tags.length > 0) { %>
+      <div class="pt-8 mt-12 border-t border-tbf-border flex flex-wrap items-center gap-2">
+        <span class="text-xs font-bold uppercase tracking-wider text-gray-400 mr-2">Filed under:</span>
+        <% article.tags.forEach(tag => { %>
+          <span class="bg-surface text-tbf-navy text-xs font-semibold px-3 py-1 uppercase tracking-wide">
+            #<%= tag %>
+          </span>
+        <% }) %>
+      </div>
+    <% } %>
+
+    <!-- Author Biography Card -->
+    <div class="my-12 p-6 bg-tbf-surface border-l-4 border-tbf-navy flex items-start gap-4">
+      <div class="w-12 h-12 bg-tbf-navy text-white flex items-center justify-center font-serif font-bold text-xl flex-shrink-0">
+        <%= (article.author || 'TBF')[0] %>
+      </div>
+      <div>
+        <h4 class="font-serif font-bold text-base text-tbf-navy"><%= article.author || 'TBF Editorial Desk' %></h4>
+        <p class="text-xs text-gray-600 font-sans mt-1 leading-relaxed">
+          The Bombay Forum is India’s premier editorial journal covering business, wealth, luxury, and culture. Written from Mumbai for operators, founders, and discerning minds.
+        </p>
+      </div>
+    </div>
+
+    <!-- Related Articles -->
+    <% if (relatedArticles && relatedArticles.length > 0) { %>
+      <section class="pt-12 border-t-2 border-tbf-navy">
+        <h3 class="font-serif text-2xl font-bold text-tbf-navy mb-6">Related in <%= categoryInfo.name %></h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <% relatedArticles.forEach(rel => { %>
+            <div class="group">
+              <a href="/article/<%= rel.slug %>" class="block overflow-hidden mb-3">
+                <img src="<%= rel.heroImage %>" alt="<%= rel.title %>" class="w-full aspect-[16/10] object-cover group-hover:scale-105 transition">
+              </a>
+              <span class="text-[9px] uppercase font-bold text-tbf-teal"><%= rel.format || 'brief' %></span>
+              <h4 class="font-serif text-base font-bold text-tbf-navy group-hover:text-tbf-teal transition mt-1 leading-snug">
+                <a href="/article/<%= rel.slug %>"><%= rel.title %></a>
+              </h4>
+            </div>
+          <% }) %>
+        </div>
+      </section>
+    <% } %>
+
+  </article>
+</main>
+
+<!-- Article JSON-LD Structured Data Schema (Brief Section 11) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": "<%= article.title.replace(/"/g, '\\"') %>",
+  "image": ["<%= article.heroImage %>"],
+  "datePublished": "<%= article.publishedAt || article.createdAt %>",
+  "dateModified": "<%= article.updatedAt || article.createdAt %>",
+  "author": [{
+    "@type": "Person",
+    "name": "<%= article.author || 'TBF Editorial Desk' %>"
+  }],
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Bombay Forum",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "<%= siteUrl %>/images/tbf-logo.png"
+    }
+  },
+  "description": "<%= (article.metaDesc || article.excerpt).replace(/"/g, '\\"') %>"
+}
+</script>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,152 @@
+<%- include('partials/header') %>
+
+<main class="flex-grow py-12 sm:py-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Hero Header -->
+    <div class="max-w-3xl mb-16">
+      <span class="tbf-category-badge text-xs">Bespoke Brand Partnerships</span>
+      <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-tbf-navy mt-2 leading-tight">
+        TBF Spotlight: Editorial Storytelling for Discerning Brands.
+      </h1>
+      <p class="font-sans text-lg sm:text-xl text-gray-600 font-medium leading-relaxed mt-4">
+        Partner with The Bombay Forum to reach India’s most influential founders, family offices, investors, and luxury tastemakers with uncompromising editorial craft.
+      </p>
+    </div>
+
+    <!-- 3 Tier Packages -->
+    <section class="mb-20">
+      <h3 class="font-serif text-2xl font-bold text-tbf-navy mb-8 pb-3 border-b-2 border-tbf-navy">Spotlight Partnership Tiers</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Tier 1 -->
+        <div class="bg-white border border-tbf-border p-8 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-tbf-teal">Tier 01</span>
+            <h4 class="font-serif text-2xl font-bold text-tbf-navy mt-1">Digital Feature</h4>
+            <p class="text-xs text-gray-600 font-sans mt-3 leading-relaxed">
+              A bespoke, thesis-driven editorial piece written by the TBF desk highlighting your brand’s innovation and heritage.
+            </p>
+            <ul class="mt-6 space-y-2.5 text-xs text-gray-700 font-sans border-t border-gray-100 pt-4">
+              <li>✓ 800-word native editorial feature</li>
+              <li>✓ Prominent placement on category pillar</li>
+              <li>✓ Permanent archive & SEO indexing</li>
+              <li>✓ Verified Partner Dispatch badge</li>
+            </ul>
+          </div>
+          <div class="pt-8 mt-6 border-t border-tbf-border">
+            <span class="text-xs font-bold uppercase text-tbf-navy">Investment: Custom</span>
+          </div>
+        </div>
+
+        <!-- Tier 2 (Highlighted) -->
+        <div class="bg-tbf-navy text-white border-2 border-tbf-teal p-8 flex flex-col justify-between relative shadow-xl">
+          <div class="absolute -top-3 right-6 bg-tbf-teal text-white text-[9px] uppercase font-bold tracking-widest px-3 py-1">
+            Most Selected
+          </div>
+          <div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-tbf-sage">Tier 02</span>
+            <h4 class="font-serif text-2xl font-bold text-white mt-1">Dedicated Editorial</h4>
+            <p class="text-xs text-gray-300 font-sans mt-3 leading-relaxed">
+              A flagship profile pairing deep brand journalism with priority inclusion in The Saturday Communiqué newsletter.
+            </p>
+            <ul class="mt-6 space-y-2.5 text-xs text-gray-300 font-sans border-t border-[#1A3347] pt-4">
+              <li>✓ 1,200-word long-form profile</li>
+              <li>✓ Homepage Featured Story slot</li>
+              <li>✓ The Saturday Communiqué dispatch</li>
+              <li>✓ High-resolution photography curation</li>
+              <li>✓ Direct lead inquiry integration</li>
+            </ul>
+          </div>
+          <div class="pt-8 mt-6 border-t border-[#1A3347]">
+            <span class="text-xs font-bold uppercase text-tbf-sage">Investment: Enterprise</span>
+          </div>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="bg-white border border-tbf-border p-8 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-tbf-teal">Tier 03</span>
+            <h4 class="font-serif text-2xl font-bold text-tbf-navy mt-1">Multi-Platform Showcase</h4>
+            <p class="text-xs text-gray-600 font-sans mt-3 leading-relaxed">
+              An all-encompassing multi-channel campaign covering website, newsletter, branded Instagram visual series, and executive distribution.
+            </p>
+            <ul class="mt-6 space-y-2.5 text-xs text-gray-700 font-sans border-t border-gray-100 pt-4">
+              <li>✓ Everything in Dedicated Editorial</li>
+              <li>✓ Multi-part editorial series (3 articles)</li>
+              <li>✓ Instagram Carousel & Story feature</li>
+              <li>✓ Homepage Sponsored Strip banner</li>
+              <li>✓ Detailed readership analytics report</li>
+            </ul>
+          </div>
+          <div class="pt-8 mt-6 border-t border-tbf-border">
+            <span class="text-xs font-bold uppercase text-tbf-navy">Investment: Bespoke Campaign</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Interactive Inquiry Form -->
+    <section class="bg-tbf-surface p-8 sm:p-12 border-t-2 border-tbf-navy">
+      <div class="max-w-2xl">
+        <span class="tbf-category-badge text-xs">Direct Inquiry</span>
+        <h3 class="font-serif text-3xl font-bold text-tbf-navy mt-1 mb-3">Initiate a Brand Partnership</h3>
+        <p class="text-xs sm:text-sm text-gray-600 mb-8 leading-relaxed">
+          Submit your details below. The TBF Brand Partnerships desk will evaluate brand alignment and reply within 24 hours.
+        </p>
+
+        <form id="spotlight-inquiry-form" class="space-y-4 text-xs font-sans">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-bold text-tbf-navy uppercase tracking-wider mb-1">Brand / Company Name *</label>
+              <input type="text" name="brandName" required class="w-full bg-white border border-tbf-border p-3 text-sm focus:outline-none focus:border-tbf-teal">
+            </div>
+            <div>
+              <label class="block font-bold text-tbf-navy uppercase tracking-wider mb-1">Contact Name *</label>
+              <input type="text" name="contactName" required class="w-full bg-white border border-tbf-border p-3 text-sm focus:outline-none focus:border-tbf-teal">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-bold text-tbf-navy uppercase tracking-wider mb-1">Business Email *</label>
+              <input type="email" name="contactEmail" required class="w-full bg-white border border-tbf-border p-3 text-sm focus:outline-none focus:border-tbf-teal">
+            </div>
+            <div>
+              <label class="block font-bold text-tbf-navy uppercase tracking-wider mb-1">Phone / WhatsApp</label>
+              <input type="text" name="contactPhone" class="w-full bg-white border border-tbf-border p-3 text-sm focus:outline-none focus:border-tbf-teal">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-bold text-tbf-navy uppercase tracking-wider mb-1">Preferred Package</label>
+              <select name="package" class="w-full bg-white border border-tbf-border p-3 text-sm focus:outline-none focus:border-tbf-teal">
+                <option value="Digital Feature">Digital Feature</option>
+                <option value="Dedicated Editorial">Dedicated Editorial (Recommended)</option>
+                <option value="Multi-Platform Showcase">Multi-Platform Showcase</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-bold text-tbf-navy uppercase tracking-wider mb-1">Approximate Budget (INR / USD)</label>
+              <input type="text" name="budget" placeholder="e.g. ₹5,00,000" class="w-full bg-white border border-tbf-border p-3 text-sm focus:outline-none focus:border-tbf-teal">
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold text-tbf-navy uppercase tracking-wider mb-1">Campaign Goals & Story Notes</label>
+            <textarea name="message" rows="4" placeholder="Briefly describe your brand story, key announcements, or target audience..." class="w-full bg-white border border-tbf-border p-3 text-sm focus:outline-none focus:border-tbf-teal"></textarea>
+          </div>
+
+          <button type="submit" class="tbf-btn-primary py-3.5 px-8 text-xs">
+            Submit Partnership Inquiry →
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,91 @@
+<%- include('../partials/admin-header') %>
+
+<form id="tbf-profile-editor-form" data-profile-id="<%= profileId || '' %>" class="space-y-6">
+
+  <div class="bg-white p-6 border border-tbf-border space-y-6 max-w-4xl">
+    
+    <div class="flex items-center justify-between pb-4 border-b border-tbf-border">
+      <h3 class="font-serif text-xl font-bold text-tbf-navy"><%= profileId ? 'Edit Profile' : 'Create New Profile' %></h3>
+      <select id="profile-status" class="bg-[#FAFAF5] border border-tbf-border p-2 text-xs font-bold focus:outline-none">
+        <option value="published">Status: Published</option>
+        <option value="draft">Status: Draft</option>
+      </select>
+    </div>
+
+    <!-- Type Selection -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Profile Category *</label>
+        <select id="profile-type" required class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs font-bold">
+          <option value="founder">The Founders (Startup / Business Leader)</option>
+          <option value="creator">Creators (Filmmaker / Artist / Music / Media)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Full Name *</label>
+        <input type="text" id="profile-name" required placeholder="e.g. Tarun Mehta" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs">
+      </div>
+    </div>
+
+    <!-- Roles / Company -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div>
+        <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Company (Founders)</label>
+        <input type="text" id="profile-company" placeholder="e.g. Ather Energy" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs">
+      </div>
+      <div>
+        <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Role (Founders)</label>
+        <input type="text" id="profile-role" placeholder="e.g. Co-Founder & CEO" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs">
+      </div>
+      <div>
+        <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Medium (Creators)</label>
+        <input type="text" id="profile-medium" placeholder="e.g. Music Producer & Composer" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs">
+      </div>
+    </div>
+
+    <!-- Location & Slug -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Location</label>
+        <input type="text" id="profile-location" value="Mumbai, India" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs">
+      </div>
+      <div>
+        <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">URL Slug</label>
+        <input type="text" id="profile-slug" placeholder="auto-generated-from-name" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs font-mono">
+      </div>
+    </div>
+
+    <!-- Portrait (Brief 3.6: 800x1000) -->
+    <div>
+      <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Portrait Image URL (800×1000 High Contrast) *</label>
+      <input type="url" id="profile-hero-image" required placeholder="https://images.unsplash.com/..." class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs font-mono">
+    </div>
+
+    <!-- Signature Quote (Most important field: Brief 10) -->
+    <div>
+      <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-teal mb-1">Signature Pull Quote * (Core Brand Anchor)</label>
+      <textarea id="profile-quote" required rows="2" placeholder="The defining philosophical quote that anchors this person's legacy..." class="w-full bg-[#FAFAF5] border-2 border-tbf-teal p-3 font-serif italic text-base focus:outline-none"></textarea>
+    </div>
+
+    <!-- Bio Paragraphs -->
+    <div>
+      <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Bio Summary Paragraphs (Separated by double newlines)</label>
+      <textarea id="profile-bio" rows="4" placeholder="Paragraph 1&#10;&#10;Paragraph 2" class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs"></textarea>
+    </div>
+
+    <!-- Long-Form Narrative Body -->
+    <div>
+      <label class="block text-[10px] uppercase font-bold tracking-wider text-tbf-navy mb-1">Long-Form Profile Narrative (Markdown)</label>
+      <textarea id="profile-content" rows="10" placeholder="Deep profile editorial with sections and insights..." class="w-full bg-[#FAFAF5] border border-tbf-border p-2.5 text-xs font-mono"></textarea>
+    </div>
+
+    <div class="pt-4 border-t border-tbf-border flex items-center justify-end gap-3">
+      <a href="/admin/profiles" class="tbf-btn-secondary py-2.5 px-5">Cancel</a>
+      <button type="submit" class="tbf-btn-primary py-2.5 px-6">Save Profile</button>
+    </div>
+
+  </div>
+
+</form>
+
+<%- include('../partials/admin-footer') %>

@@ -1,0 +1,100 @@
+[
+  {
+    "_id": "tbf_1787744782546_1l4afuok7",
+    "createdAt": "2026-08-26T11:46:22.546Z",
+    "updatedAt": "2026-08-26T11:46:22.546Z",
+    "name": "Tarun Mehta",
+    "slug": "tarun-mehta",
+    "type": "founder",
+    "company": "Ather Energy",
+    "role": "Co-Founder & CEO",
+    "location": "Bengaluru / Mumbai",
+    "heroImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&h=1000&q=80",
+    "quote": "Building hardware in India isn’t an exercise in cost cutting; it is an exercise in proving that Indian engineering can lead globally.",
+    "bio": [
+      "Tarun Mehta co-founded Ather Energy in 2013 with a vision to build India’s first truly smart electric two-wheeler from the ground up.",
+      "Under his leadership, Ather has pioneered indigenous battery architecture, vertically integrated manufacturing in Hosur, and expanded the fast-charging Ather Grid across major Indian metros."
+    ],
+    "stats": {
+      "founded": "2013",
+      "teamSize": "3,500+",
+      "valuation": "₹10,500 Cr",
+      "markets": "140+ Cities",
+      "structure": "Private Limited / IPO Bound"
+    },
+    "platforms": {
+      "linkedin": "https://linkedin.com/in/tarunmehta",
+      "twitter": "https://twitter.com/tarunsmehta",
+      "website": "https://atherenergy.com"
+    },
+    "content": "## The Architecture of Patience\n\nWhen Tarun Mehta and Swapnil Jain graduated from IIT Madras in 2012, the conventional wisdom suggested building software. SaaS was ascending, capital was liquid, and unit economics could be tweaked with a line of code. Choosing instead to build high-performance electric hardware in India was widely viewed as reckless.\n\nYet, a decade later, Ather Energy stands as an archetype of deep-tech resilience. The company did not assemble imported Chinese kits; it engineered proprietary battery thermal management systems capable of surviving Indian ambient temperatures of 45°C and monsoon waterlogging.\n\n> Hardware teaches humility quickly. When a component fails in the field, you cannot push an over-the-air update to repair melted plastic.\n\n## The Next Horizon\n\nWith public markets beckoning, Ather's strategic posture has pivoted toward scale without sacrificing engineering purity. As domestic EV adoption crosses inflection points, Mehta’s play remains firmly anchored on software-defined vehicles and robust energy infrastructure.",
+    "metaTitle": "Tarun Mehta Profile: Building Ather Energy | TBF",
+    "metaDesc": "How Tarun Mehta engineered Ather Energy into India’s premier electric two-wheeler pioneer.",
+    "status": "published"
+  },
+  {
+    "_id": "tbf_1787744782546_3cma6pay7",
+    "createdAt": "2026-08-26T11:46:22.546Z",
+    "updatedAt": "2026-08-26T11:46:22.546Z",
+    "name": "Deepinder Goyal",
+    "slug": "deepinder-goyal",
+    "type": "founder",
+    "company": "Zomato & Blinkit",
+    "role": "Founder & CEO",
+    "location": "Gurugram / Mumbai",
+    "heroImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&h=1000&q=80",
+    "quote": "Quick commerce is not a feature of retail; it is the total architectural rewiring of urban consumer convenience.",
+    "bio": [
+      "Deepinder Goyal founded Zomato in 2008 as a restaurant discovery portal, eventually steering it into India’s dominant food delivery and quick commerce conglomerate.",
+      "His acquisition and aggressive scaling of Blinkit has reshaped India’s retail landscape and set a new standard for hyper-local logistical execution."
+    ],
+    "stats": {
+      "founded": "2008",
+      "teamSize": "5,000+",
+      "valuation": "₹2,10,000 Cr Market Cap",
+      "markets": "Pan-India",
+      "structure": "NSE / BSE Listed (ZOMATO)"
+    },
+    "platforms": {
+      "twitter": "https://twitter.com/deepigoyal",
+      "linkedin": "https://linkedin.com/in/deepindergoyal",
+      "website": "https://zomato.com"
+    },
+    "content": "## The Second Act: Hyper-Local Dominance\n\nWhen Zomato went public in 2021, skeptics questioned whether food delivery alone could sustain long-term operating margins. Goyal's answer was not defensive cost-cutting, but an aggressive expansion into quick commerce through the acquisition of Blinkit.\n\nToday, dark stores across Mumbai and Delhi process tens of thousands of orders every ten minutes, redefining consumer expectations from groceries to high-end electronics.\n\n> The only moat in high-frequency logistics is density. Density drives delivery speed, which drives customer retention, which pays for the real estate.",
+    "metaTitle": "Deepinder Goyal Profile: The Quick Commerce Moat | TBF",
+    "metaDesc": "Inside Deepinder Goyal’s relentless execution with Zomato and Blinkit.",
+    "status": "published"
+  },
+  {
+    "_id": "tbf_1787744782546_sk467071f",
+    "createdAt": "2026-08-26T11:46:22.546Z",
+    "updatedAt": "2026-08-26T11:46:22.546Z",
+    "name": "Yashraj Mukhate",
+    "slug": "yashraj-mukhate",
+    "type": "creator",
+    "medium": "Music Producer & Cultural Satirist",
+    "location": "Mumbai / Aurangabad",
+    "heroImage": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&h=1000&q=80",
+    "quote": "The internet does not reward perfection; it rewards emotional resonance captured in a ten-second musical loop.",
+    "bio": [
+      "Yashraj Mukhate transformed Indian digital pop culture by transforming everyday dialogues and television tropes into viral musical symphonies.",
+      "With millions of subscribers across platforms, he has built an independent production house that collaborates with premier cinematic brands, streaming giants, and commercial labels."
+    ],
+    "stats": {
+      "founded": "2020 (Independent IP)",
+      "teamSize": "12 Production Creatives",
+      "valuation": "Top-tier Creator Brand",
+      "markets": "Global Diaspora",
+      "structure": "Independent Studio"
+    },
+    "platforms": {
+      "instagram": "https://instagram.com/yashrajmukhate",
+      "youtube": "https://youtube.com/yashrajmukhate",
+      "website": "https://yashrajmukhate.com"
+    },
+    "content": "## Turning the Absurd into Art\n\nIn August 2020, a thirty-second track featuring rhythmic synth pads and an autotuned television soap opera monologue swept Indian smartphones. Yashraj Mukhate was an engineer and music composer from Aurangabad whose viral spark proved that audio-first humor had immense enterprise value.\n\nIn the years since, Mukhate has evolved beyond meme virality into a prolific commercial composer and digital brand builder.\n\n> The line between sound design and comedy in digital spaces is rhythm. When you sync conversational cadence to a four-on-the-floor beat, humor becomes addictive.",
+    "metaTitle": "Yashraj Mukhate Profile: The Rhythmic Economy | TBF",
+    "metaDesc": "How Yashraj Mukhate built an independent creative studio on the foundation of digital sound design.",
+    "status": "published"
+  }
+]

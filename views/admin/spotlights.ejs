@@ -1,0 +1,32 @@
+<%- include('../partials/admin-header') %>
+
+<div class="space-y-6 max-w-5xl">
+  
+  <div class="flex items-center justify-between pb-4 border-b border-tbf-border">
+    <div>
+      <h3 class="font-serif text-2xl font-bold text-tbf-navy">TBF Spotlight Partnership Inquiries</h3>
+      <p class="text-xs text-gray-500 mt-1">Direct inquiries submitted by brands seeking bespoke editorial and sponsored features.</p>
+    </div>
+  </div>
+
+  <div class="bg-white border border-tbf-border overflow-x-auto">
+    <table class="w-full text-left border-collapse">
+      <thead>
+        <tr class="bg-surface border-b border-tbf-border text-[10px] uppercase font-bold tracking-widest text-gray-500">
+          <th class="p-4">Brand Name</th>
+          <th class="p-4">Contact</th>
+          <th class="p-4">Package</th>
+          <th class="p-4">Budget</th>
+          <th class="p-4">Status</th>
+          <th class="p-4">Submitted At</th>
+        </tr>
+      </thead>
+      <tbody id="spotlights-table-body" class="divide-y divide-tbf-border">
+        <!-- Populated via admin.js -->
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<%- include('../partials/admin-footer') %>

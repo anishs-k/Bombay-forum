@@ -1,0 +1,71 @@
+<%- include('partials/header') %>
+
+<main class="flex-grow py-12 sm:py-16">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="border-b-2 border-tbf-navy pb-6 mb-8">
+      <span class="tbf-category-badge text-xs">Search Index</span>
+      <h1 class="font-serif text-3xl sm:text-4xl font-bold text-tbf-navy mt-1">
+        <%= query ? `Results for "${query}"` : 'Search The Bombay Forum' %>
+      </h1>
+      <p class="text-xs text-gray-500 mt-2">
+        Found <%= results ? results.length : 0 %> stories matching your search
+      </p>
+    </div>
+
+    <!-- Search Bar -->
+    <form action="/search" method="GET" class="mb-10 flex gap-2">
+      <input type="text" name="q" value="<%= query %>" placeholder="Search founders, companies, wealth, future, luxury..." class="flex-1 p-3.5 border border-tbf-border bg-white text-sm focus:outline-none focus:border-tbf-teal font-sans">
+      <button type="submit" class="tbf-btn-primary py-3.5 px-8">Search</button>
+    </form>
+
+    <!-- Results List -->
+    <% if (results && results.length > 0) { %>
+      <div class="space-y-8">
+        <% results.forEach(art => { %>
+          <article class="bg-white border border-tbf-border p-6 flex flex-col sm:flex-row gap-6 group hover:border-tbf-navy transition">
+            <a href="/article/<%= art.slug %>" class="sm:w-1/3 flex-shrink-0 block overflow-hidden">
+              <img src="<%= art.heroImage %>" alt="<%= art.title %>" class="w-full aspect-[16/10] object-cover group-hover:scale-105 transition">
+            </a>
+            <div class="flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-2 text-[10px] text-gray-500 mb-1.5">
+                  <a href="/<%= art.category %>" class="uppercase font-bold text-tbf-teal"><%= art.category %></a>
+                  <span>•</span>
+                  <span><%= formatDate(art.publishedAt || art.createdAt, 'short') %></span>
+                  <span>•</span>
+                  <span><%= calculateReadingTime(art.content) %></span>
+                </div>
+                <h3 class="font-serif text-xl sm:text-2xl font-bold text-tbf-navy group-hover:text-tbf-teal transition leading-snug">
+                  <a href="/article/<%= art.slug %>"><%= art.title %></a>
+                </h3>
+                <p class="text-xs sm:text-sm text-gray-600 font-sans mt-2 line-clamp-2 leading-relaxed">
+                  <%= art.excerpt %>
+                </p>
+              </div>
+              <div class="pt-4 mt-2 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+                <span>By <%= art.author %></span>
+                <a href="/article/<%= art.slug %>" class="font-bold text-tbf-teal hover:underline">Read Story →</a>
+              </div>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+    <% } else if (query) { %>
+      <div class="p-12 text-center bg-surface border border-tbf-border">
+        <h3 class="font-serif text-2xl font-bold text-tbf-navy mb-2">No matching stories found</h3>
+        <p class="text-xs text-gray-600 max-w-md mx-auto mb-6">
+          We couldn't find any articles matching "<%= query %>". Try exploring one of our primary pillars:
+        </p>
+        <div class="flex flex-wrap justify-center gap-2">
+          <% categories.forEach(cat => { %>
+            <a href="<%= cat.path %>" class="tbf-btn-secondary text-xs px-3 py-1.5"><%= cat.name %></a>
+          <% }) %>
+        </div>
+      </div>
+    <% } %>
+
+  </div>
+</main>
+
+<%- include('partials/footer') %>

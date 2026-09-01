@@ -1,0 +1,19 @@
+<%- include('../partials/admin-header') %>
+
+<div class="space-y-6">
+  
+  <div class="flex items-center justify-between">
+    <div>
+      <h3 class="font-serif text-2xl font-bold text-tbf-navy">Founders & Creators Registry</h3>
+      <p class="text-xs text-gray-500 mt-1">Manage long-form flagship profiles, signature quotes, and enterprise metrics.</p>
+    </div>
+    <a href="/admin/profile-editor" class="tbf-btn-primary py-2 px-4 text-xs">+ Add New Profile</a>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="profiles-grid">
+    <!-- Populated via admin.js -->
+  </div>
+
+</div>
+
+<%- include('../partials/admin-footer') %>
