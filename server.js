@@ -8,13 +8,15 @@ const rateLimit = require('express-rate-limit');
 
 const { connectDB } = require('./src/config/db');
 const { seedDatabase } = require('./src/utils/seed');
-const schedulerService = require('./src/services/schedulerService');
 
 const apiRoutes = require('./src/routes/api');
 const pageRoutes = require('./src/routes/pages');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+// Detect environment: Vercel injects VERCEL=1 into every function invocation.
+const IS_VERCEL = !!process.env.VERCEL;
 
 // Set EJS as templating engine
 app.set('view engine', 'ejs');
@@ -43,6 +45,37 @@ const publicLimiter = rateLimit({
 });
 app.use('/api/', publicLimiter);
 
+// ---------------------------------------------------------------------------
+// DB bootstrap
+//
+// On a persistent server (local / Docker / Cloud Run) this runs once at
+// startup. On Vercel there is no "startup" — every route hits a serverless
+// function, and a cold-started function may reuse a warm container on the
+// next request. So instead of connecting once up front, we lazily connect
+// on the first request that comes into a given container, and cache the
+// promise so concurrent/subsequent requests in that same warm container
+// reuse the same connection instead of reconnecting every time.
+// ---------------------------------------------------------------------------
+let bootstrapPromise = null;
+function ensureBootstrapped() {
+  if (!bootstrapPromise) {
+    bootstrapPromise = (async () => {
+      await connectDB();
+      await seedDatabase();
+    })().catch(err => {
+      // If bootstrap fails, clear the cache so the next request can retry
+      // instead of every future request failing on a poisoned promise.
+      bootstrapPromise = null;
+      throw err;
+    });
+  }
+  return bootstrapPromise;
+}
+
+app.use((req, res, next) => {
+  ensureBootstrapped().then(() => next()).catch(next);
+});
+
 // Mount Routes
 app.use('/api', apiRoutes);
 app.use('/', pageRoutes);
@@ -56,33 +89,43 @@ app.use((err, req, res, next) => {
   res.status(500).render('404', { pageTitle: 'Server Error — The Bombay Forum' });
 });
 
-// Boot Server
-async function startServer() {
-  try {
-    // 1. Connect to Database (Atlas or local fallback)
-    await connectDB();
+// ---------------------------------------------------------------------------
+// Local / traditional-host mode only.
+//
+// On Vercel, this file is never "run" directly — it's imported as the
+// serverless function handler (see the "builds" entry in vercel.json).
+// Calling app.listen() there would be a no-op at best and a resource leak
+// at worst, so it's gated behind the VERCEL env check.
+//
+// node-cron is NOT started here anymore — Vercel functions don't stay
+// alive between requests, so a setInterval-style scheduler would never
+// actually fire. Ingestion is now triggered via a dedicated route
+// (see src/routes/api.js -> /api/cron/ingest) invoked by Vercel Cron
+// (vercel.json) and/or an external scheduler.
+// ---------------------------------------------------------------------------
+if (!IS_VERCEL && require.main === module) {
+  ensureBootstrapped()
+    .then(() => {
+      app.listen(PORT, () => {
+        console.log(`=======================================================`);
+        console.log(`🏛️  THE BOMBAY FORUM — Content Ecosystem & Platform`);
+        console.log(`🌐 Server running on: http://localhost:${PORT}`);
+        console.log(`📰 Public Site:       http://localhost:${PORT}/`);
+        console.log(`⚙️  Admin Console:     http://localhost:${PORT}/admin`);
+        console.log(`📡 RSS Feed:          http://localhost:${PORT}/rss`);
+        console.log(`🗺️  Sitemap:           http://localhost:${PORT}/sitemap.xml`);
+        console.log(`=======================================================`);
+      });
 
-    // 2. Run initial seeder
-    await seedDatabase();
-
-    // 3. Initialize background ingestion cron
-    schedulerService.init();
-
-    // 4. Start Listening
-    app.listen(PORT, () => {
-      console.log(`=======================================================`);
-      console.log(`🏛️  THE BOMBAY FORUM — Content Ecosystem & Platform`);
-      console.log(`🌐 Server running on: http://localhost:${PORT}`);
-      console.log(`📰 Public Site:       http://localhost:${PORT}/`);
-      console.log(`⚙️  Admin Console:     http://localhost:${PORT}/admin`);
-      console.log(`📡 RSS Feed:          http://localhost:${PORT}/rss`);
-      console.log(`🗺️  Sitemap:           http://localhost:${PORT}/sitemap.xml`);
-      console.log(`=======================================================`);
+      // Only start the interval-based cron when actually running as a
+      // long-lived process (local/Docker/Cloud Run), never on Vercel.
+      const schedulerService = require('./src/services/schedulerService');
+      schedulerService.init();
+    })
+    .catch(err => {
+      console.error('Fatal startup error:', err);
+      process.exit(1);
     });
-  } catch (err) {
-    console.error('Fatal startup error:', err);
-    process.exit(1);
-  }
 }
 
-startServer();
+module.exports = app;
