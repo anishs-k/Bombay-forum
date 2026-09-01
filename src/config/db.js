@@ -5,14 +5,39 @@ const path = require('path');
 let isConnectedToMongo = false;
 const DATA_DIR = path.join(__dirname, '../../data');
 
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+// NOTE: Directory creation used to happen here, unconditionally, at
+// module-load time. That crashes the whole function on Vercel: the
+// filesystem there is read-only outside /tmp, so fs.mkdirSync() throws
+// EROFS the instant this file is require()'d — before any route runs,
+// before any try/catch in server.js can catch it, on every single
+// request (including static assets, since everything routes through the
+// one Express function).
+//
+// The local JSON fallback is only meant for local dev without Mongo
+// configured. Since a real MONGODB_URI is expected in production, this
+// setup is now deferred until a LocalStore is actually instantiated
+// (i.e. only if Mongo genuinely isn't configured), and wrapped so a
+// filesystem failure degrades instead of crashing the process.
+let localDirReady = false;
+function ensureDataDirOnce() {
+  if (localDirReady) return;
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    localDirReady = true;
+  } catch (e) {
+    console.error('Could not prepare local JSON data directory (expected on read-only/serverless filesystems):', e.message);
+    // Leave localDirReady false; LocalStore calls below will surface
+    // clearer errors if something actually tries to use this fallback.
+  }
 }
 
 // Local JSON Storage Engine (Zero-dependency fallback)
 class LocalStore {
   constructor(collectionName) {
     this.name = collectionName;
+    ensureDataDirOnce();
     this.filePath = path.join(DATA_DIR, `${collectionName}.json`);
     if (!fs.existsSync(this.filePath)) {
       fs.writeFileSync(this.filePath, JSON.stringify([], null, 2));
